@@ -1,0 +1,61 @@
+<html>
+<head>
+<script type="text/javascript">
+    function ShowLoading(e) {
+        var div = document.createElement('div');
+        var img = document.createElement('img');
+        img.src = 'loading.gif';
+        div.innerHTML = "Loading... This might take up to 1 minute!<br />";
+        div.style.cssText = 'position: fixed; top: 5%; left: 40%; z-index: 5000; width: 542px; text-align: center; background: #EDDBB0; border: 1px solid #000';
+        div.appendChild(img);
+        document.body.appendChild(div);
+        return true;
+    }
+</script>
+</head>
+
+<body>
+<h1>Compare the Board Game Geek collection of 2 players.</h1>
+<form action="compare.php" method="post" onsubmit="ShowLoading()">
+Compare the <select name="firstDD[]" multiple>
+  <option value="own">owned</option>
+  <option value="rated">rated</option>
+  <option value="played">played</option>
+  <option value="comment">commented</option>
+  <option value="trade">for trade</option>
+  <option value="want">want in trade</option>
+  <option value="wishlist">wishlist</option>
+  <option value="wanttoplay">want to play</option>
+  <option value="wanttobuy">want to buy</option>
+  <option value="prevowned">previously owned</option>
+  <option value="preordered">preordered</option>
+  <option value="hasparts">has parts</option>
+  <option value="wantparts">wants parts</option>
+</select>  from <input type="text" name="username1"><br>
+Against the <select name="secondDD[]" multiple>
+  <option value="own">owned</option>
+  <option value="rated">rated</option>
+  <option value="played">played</option>
+  <option value="comment">commented</option>
+  <option value="trade">for trade</option>
+  <option value="want">want in trade</option>
+  <option value="wishlist">wishlist</option>
+  <option value="wanttoplay">want to play</option>
+  <option value="wanttobuy">want to buy</option>
+  <option value="prevowned">previously owned</option>
+  <option value="preordered">preordered</option>
+  <option value="hasparts">has parts</option>
+  <option value="wantparts">wants parts</option>
+</select> from <input type="text" name="username2"><br>
+<input type="checkbox" name="notMode" value="not"><image src="???" tooltip="Not mode: this works exactly the opposite of how it normally works. It displays all games that are not on both lists."/>
+<input type="checkbox" name="excludeExpansions" value="exclude"><image src="??" tooltip="Exclude expansions. Only excludes games that are only expansions. Games that can expand a game and can be played stand alone are not excluded."/>
+<input id="submitButton" type="submit" >
+</form>
+<div id="imgDiv"></div>
+ <a href="compare_to_geeklist.html">Or click here to compare a collection to a geeklist!</a> 
+ 
+ <h1>Feature requests or bugs?</h1>
+ <p>Take a look <a href="https://boardgamegeek.com/thread/1792487">here</a>.</p>
+ 
+</body>
+</html> 
