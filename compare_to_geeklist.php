@@ -75,13 +75,13 @@ if($sxml === false){
     if($sxml === false){
       echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
     } else {
-      echo "<p>User collection loaded.</p>";  
+      //echo "<p>User collection loaded.</p>";  
     }
   } else {
-    echo "<p>User collection loaded.</p>";
+    //echo "<p>User collection loaded.</p>";
   }
 } else {
-  echo "<p>User collection loaded.</p>";
+  //echo "<p>User collection loaded.</p>";
 }
       
 $sxml2 = getXMLfromBGG($url, 0);
@@ -96,13 +96,13 @@ if($sxml2 === false){
     if($sxml === false){
       echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
     } else {
-      echo "<p>Geeklist loaded.</p>"; 
+      //echo "<p>Geeklist loaded.</p>"; 
     }
   } else {
-    echo "<p>Geeklist loaded.</p>";
+    //echo "<p>Geeklist loaded.</p>";
   }
 } else {
-  echo "<p>Geeklist loaded.</p>";
+  //echo "<p>Geeklist loaded.</p>";
 }
 
 $listFirstPlayer = array();
