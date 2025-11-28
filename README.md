@@ -7,7 +7,8 @@ BGG Collection Comparison
 - A webserver with PHP support and the curl module active
 - A webbrowser
 
-# History
+
+# Changelog
 
 ## version 1.0 (2024-08-24)
 
@@ -15,7 +16,7 @@ BGG Collection Comparison
 
 ## version 1.1 (2024-11-27)
 
-- Added "Powered by BGG" logo
+- Added "Powered by BGG" logo (BGG:DraedGhawl)
 
 ## version 2.0 (2025-12-XX)
 
@@ -25,7 +26,7 @@ BGG Collection Comparison
 
 # Setup
 
-Open de connection.py file and place your bearer token into the apiToken variable
+Open de connection.php file and place your bearer token into the apiToken variable
 
 
 # Usage

@@ -93,7 +93,7 @@ if($sxml2 === false){
     echo "<p>Waiting 20 seconds for BGG to process request...</p>";
     sleep(20);
     $sxml2 = getXMLfromBGG($url, 0);
-    if($sxml === false){
+    if($sxml2 === false){
       echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
     } else {
       //echo "<p>Geeklist loaded.</p>"; 
