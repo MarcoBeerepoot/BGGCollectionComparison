@@ -319,13 +319,29 @@ if(count($listFirstPlayer) == 0){
 			$url = $url."&excludesubtype=boardgameexpansion";
 		}
 		// read feed into SimpleXML object
-		//$sxml = getXML($url, 0);
 		$sxml = getXMLfromBGG($url, 0);
-
-		return processXML($sxml, $ddChoice);
+    if($sxml === false){
+      echo "<p>Waiting 10 seconds for BGG to process request...</p>";
+      sleep(10);
+      $sxml = getXMLfromBGG($url, 0);
+      if($sxml === false){
+        echo "<p>Waiting 20 seconds for BGG to process request...</p>";
+        sleep(20);
+        $sxml = getXMLfromBGG($url, 0);
+        if($sxml === false){
+          echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
+        } else {
+          return processXML($sxml, $ddChoice);  
+        }
+      } else {
+        return processXML($sxml, $ddChoice);
+      }
+    } else {
+		  return processXML($sxml, $ddChoice);
+    }
     //echo "Processed Choices"; 
 	}
-	
+
 	?>
     </div>
     <div class="content">

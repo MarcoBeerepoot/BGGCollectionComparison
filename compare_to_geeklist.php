@@ -52,6 +52,9 @@ class GeeklistItem {
 		$this->objectId = $newID;
 	}
 }
+      
+set_time_limit(240);
+
 $username = $_POST["username"]; 
 $geeklist = $_POST["geeklist"]; 
 $dropdownValue = $_POST["dropdownValue"];
@@ -60,29 +63,46 @@ $url = "https://boardgamegeek.com/xmlapi/collection/".$username."?".$dropdownVal
 $url2 = "https://boardgamegeek.com/xmlapi/geeklist/".$geeklist;
 // read feed into SimpleXML object
   
-try {
-  $sxml = getXMLfromBGG($url,0);
-} catch (Exception $e) {
-  echo '<p>Caught exception: ',  $e->getMessage(), "</p>";
-}
-if ($sxml === false) {
-  // response can be you need to comeback later and request it again... that wasn't implemented yet.
-  echo "<p>Something went wrong loading user collection!</p>";
+$sxml = getXMLfromBGG($url, 0);
+if($sxml === false){
+  echo "<p>Waiting 10 seconds for BGG to process request...</p>";
+  sleep(10);
+  $sxml = getXMLfromBGG($url, 0);
+  if($sxml === false){
+    echo "<p>Waiting 20 seconds for BGG to process request...</p>";
+    sleep(20);
+    $sxml = getXMLfromBGG($url, 0);
+    if($sxml === false){
+      echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
+    } else {
+      echo "<p>User collection loaded.</p>";  
+    }
+  } else {
+    echo "<p>User collection loaded.</p>";
+  }
 } else {
-  //echo "<p>User collection loaded!</p>";
-  //print_r($xml);
+  echo "<p>User collection loaded.</p>";
 }
-
-try {
-  $sxml2 = getXMLfromBGG($url2,0);
-} catch (Exception $e) {
-  echo '<p>Caught exception: ',  $e->getMessage(), "</p>";
-}
-if ($sxml2 === false) {
-  echo "<p>Something went wrong loading geeklist!</p>";
-  //echo $xml2;
+      
+$sxml2 = getXMLfromBGG($url, 0);
+if($sxml2 === false){
+  echo "<p>Waiting 10 seconds for BGG to process request...</p>";
+  sleep(10);
+  $sxml2 = getXMLfromBGG($url, 0);
+  if($sxml2 === false){
+    echo "<p>Waiting 20 seconds for BGG to process request...</p>";
+    sleep(20);
+    $sxml2 = getXMLfromBGG($url, 0);
+    if($sxml === false){
+      echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
+    } else {
+      echo "<p>Geeklist loaded.</p>"; 
+    }
+  } else {
+    echo "<p>Geeklist loaded.</p>";
+  }
 } else {
-  //echo "<p>Geeklist loaded!</p>";
+  echo "<p>Geeklist loaded.</p>";
 }
 
 $listFirstPlayer = array();
