@@ -1,63 +1,91 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<script type="text/javascript">
-    function ShowLoading(e) {
-        var div = document.createElement('div');
-        var img = document.createElement('img');
-        img.src = 'loading.gif';
-        div.innerHTML = "Loading... This might take up to 1 minute!<br />";
-        div.style.cssText = 'position: fixed; top: 5%; left: 40%; z-index: 5000; width: 542px; text-align: center; background: #EDDBB0; border: 1px solid #000';
-        div.appendChild(img);
-        document.body.appendChild(div);
-        return true;
-    }
-</script>
+  <title>BGG Collection Comparison</title>
+  <link rel="stylesheet" href="style.css" media="all">
+  <script type="application/javascript" src="scripts.js"></script>
+  <link rel="shortcut icon" href="https://cf.geekdo-static.com/icons/favicon2.ico" type="image/ico">
+  <link rel="preload" href="loading.gif" as="image" type="image/gif">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
 <body>
-<h1>Compare the Board Game Geek collection of 2 players.</h1>
-<form action="compare.php" method="post" onsubmit="ShowLoading()">
-Compare the <select name="firstDD[]" multiple>
-  <option value="own">owned</option>
-  <option value="rated">rated</option>
-  <option value="played">played</option>
-  <option value="comment">commented</option>
-  <option value="trade">for trade</option>
-  <option value="want">want in trade</option>
-  <option value="wishlist">wishlist</option>
-  <option value="wanttoplay">want to play</option>
-  <option value="wanttobuy">want to buy</option>
-  <option value="prevowned">previously owned</option>
-  <option value="preordered">preordered</option>
-  <option value="hasparts">has parts</option>
-  <option value="wantparts">wants parts</option>
-</select>  from <input type="text" name="username1"><br>
-Against the <select name="secondDD[]" multiple>
-  <option value="own">owned</option>
-  <option value="rated">rated</option>
-  <option value="played">played</option>
-  <option value="comment">commented</option>
-  <option value="trade">for trade</option>
-  <option value="want">want in trade</option>
-  <option value="wishlist">wishlist</option>
-  <option value="wanttoplay">want to play</option>
-  <option value="wanttobuy">want to buy</option>
-  <option value="prevowned">previously owned</option>
-  <option value="preordered">preordered</option>
-  <option value="hasparts">has parts</option>
-  <option value="wantparts">wants parts</option>
-</select> from <input type="text" name="username2"><br/>
-<input type="checkbox" name="notMode" value="not"> Not mode: this works exactly the opposite of how it normally works. It displays all games that are not on both lists.<br/>
-<input type="checkbox" name="excludeExpansions" value="exclude"> Exclude expansions. Only excludes games that are only expansions. Games that can expand a game and can be played stand alone are not excluded.<br/>
-<input id="submitButton" type="submit" >
-</form>
-<div id="imgDiv"></div>
- <a href="compare_to_geeklist.html">Or click here to compare a collection to a geeklist!</a> 
- 
- <h1>Feature requests or bugs?</h1>
- <p>Take a look <a href="https://boardgamegeek.com/thread/1792487">here</a>.</p>
-
-<img src="powered_by_logo_01_SM.jpg"/>
- 
+  <header>
+    <h1>Compare a user's BoardGameGeek collection to another user's collection</h1>
+  </header>
+  <main> 
+    <form action="compare.php" method="post" onsubmit="return ShowLoading()">
+      <div class="columns">
+        <fieldset>
+          <legend>Compare this user's collection</legend>
+          <dl>  
+            <dt><label for="firstDD">Compare the:</label></dt>
+            <dd><select name="firstDD[]" id="firstDD" multiple size="13">
+            <option value="own" selected>owned</option>
+            <option value="rated">rated</option>
+            <option value="played">played</option>
+            <option value="comment">commented</option>
+            <option value="trade">for trade</option>
+            <option value="want">want in trade</option>
+            <option value="wishlist">wishlist</option>
+            <option value="wanttoplay">want to play</option>
+            <option value="wanttobuy">want to buy</option>
+            <option value="prevowned">previously owned</option>
+            <option value="preordered">preordered</option>
+            <option value="hasparts">has parts</option>
+            <option value="wantparts">wants parts</option>
+          </select></dd>
+            <dt><label for="username1" id="username1">From user:</label></dt>
+            <dd><input type="text" name="username1" value=""></dd>
+          </dl>
+        </fieldset>
+        <fieldset>
+          <legend>Compare this user's collection</legend>
+          <dl>
+            <dt><label for="secondDD">Against the:</label></dt>
+            <dd><select name="secondDD[]" id="secondDD" multiple size="13">
+            <option value="own" selected>owned</option>
+            <option value="rated">rated</option>
+            <option value="played">played</option>
+            <option value="comment">commented</option>
+            <option value="trade">for trade</option>
+            <option value="want">want in trade</option>
+            <option value="wishlist">wishlist</option>
+            <option value="wanttoplay">want to play</option>
+            <option value="wanttobuy">want to buy</option>
+            <option value="prevowned">previously owned</option>
+            <option value="preordered">preordered</option>
+            <option value="hasparts">has parts</option>
+            <option value="wantparts">wants parts</option>
+          </select></dd>
+          <dt><label for="username2">From the other user:</label></dt>
+          <dd><input type="text" name="username2" value=""></dd>
+        </dl>
+        </fieldset>
+      </div>
+      <fieldset class="options">
+        <legend>Options</legend>
+        <dl>
+          <dt>Not mode</dt>
+          <dd><input type="checkbox" name="notMode" id="notMode" value="not"><label for="notMode">Not mode: This works exactly the opposite of how it normally works. It displays all games that are not on both lists.</label></dd>
+          <dt>Exclude expansions</dt>
+          <dd><input type="checkbox" name="excludeExpansions" id="excludeExpansions" value="exclude"><label for="excludeExpansions">Exclude expansions: Only excludes games that are only expansions. Games that can expand a game and can be played stand alone are not excluded.</label></dd>
+        </dl>
+        <p class="buttons"><input id="submitButton" type="submit" value="Start comparison"></p>
+      </fieldset>
+    </form>
+    <!--<div id="imgDiv"></div>-->
+    <div class="content">
+      <h2>Compare something else:</h2>
+      <ul>
+       <li><a href="./">Compare two user's collections</a></li>
+        <li><a href="compare_to_geeklist.html">Compare a user's collection to a geeklist</a></li>
+      </ul>
+      <h2>Feature requests or bugs?</h2>
+      <p>Take a look at the <a href="https://boardgamegeek.com/thread/1792487">BGG thread</a>.</p>
+    </div>
+  </main>
+  <footer>
+    <img src="powered_by_logo_01_SM.jpg" alt="Powered by BGG"/>
+  </footer>
 </body>
 </html> 

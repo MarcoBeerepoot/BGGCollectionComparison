@@ -1,23 +1,22 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<style>
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-tr:nth-child(even) {
-    background-color: #e6e6e6;
-}
-
-tr:hover {
-          background-color: #ffff99;
-        }
-</style>
+  <title>BGG Collection Comparison</title>
+  <link rel="stylesheet" href="style.css" media="all">
+  <script type="application/javascript" src="scripts.js"></script>
+  <link rel="shortcut icon" href="https://cf.geekdo-static.com/icons/favicon2.ico" type="image/ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+  <header>
+    <h1>Compare a user's BoardGameGeek collection to a geeklist</h1>
+  </header>
+  <main>
+    <div class="content">
 <?php 
-
+include 'connection.php';
+include 'bggxmlapi.php';
+  
 class Game {
 	private $id;
 	private $name;
@@ -90,7 +89,7 @@ class Game {
         break;
 		default:
 		return $priority;
-}
+    }
 	}
 	
 	private function convertStatusToReadableText($status){
@@ -124,10 +123,9 @@ class Game {
         break;
 		default:
 		return $status;
-}
+    }
 	}
 }
-
 
 if(isset($_GET["username1"])){
 	$username1 = $_GET["username1"];
@@ -155,93 +153,98 @@ set_time_limit(240);
 $listFirstPlayer = array();
 $listSecondPlayer = array();
 foreach($firstDD as $selectedOption){
-	$listFirstPlayer = array_merge($listFirstPlayer, processChoices($username1, $selectedOption, $excludeExpansions));
+	$listFirstPlayer = array_merge($listFirstPlayer, processChoices($username1, $selectedOption, $excludeExpansions, $BGGApiXMLToken));
 }
 foreach($secondDD as $selectedOption){
-	$listSecondPlayer = array_merge($listSecondPlayer, processChoices($username2, $selectedOption, $excludeExpansions));
+	$listSecondPlayer = array_merge($listSecondPlayer, processChoices($username2, $selectedOption, $excludeExpansions, $BGGApiXMLToken));
 }
 
 if(count($listFirstPlayer) == 0){
 	echo "<p>List of ".$username1." is empty.</p>";
 } else {
-
   if(count($listSecondPlayer) == 0){
-	echo "<p>List of ".$username2." is empty.</p>";
+    echo "<p>List of ".$username2." is empty.</p>";
   } else {
-	  if($notMode == ""){
-echo "<p>The games that are on both selected lists:</p>";
+	  if ($notMode == ""){
+      //echo "<p>The games that are on both selected lists:</p>";
+      $caption = "The games that are on both selected lists:";
 	  } else {
-echo "<p>The games that are <b>not</b> on both selected lists:</p>";
+      //echo "<p>The games that are <b>not</b> on both selected lists:</p>";
+      $caption = "The games that are <b>not</b> on both selected lists:";
 	  }
 
-$similarities = 0;
-$found;
-foreach($listFirstPlayer as $game){
-	$found = false;
-	foreach($listSecondPlayer as $game2){
-		if($game->getID() == $game2->getID()){
-			$found = true;
-			if($notMode == ""){
-				$similarities = printGameInTable($similarities, $firstDD, $secondDD, $username1, $username2, $game, $game2);
-			}
-		}
-	}
-	if(!$found && $notMode == "not"){
-		$game2 = new Game("", "", "");
-		$game2->setWishlistPriority("");
-		$game2->setStatus("");
-		$game2->setComment("");
-		$similarities = printGameInTable($similarities, $firstDD, $secondDD, $username1, $username2, $game, $game2);
-	}
-}
+    $similarities = 0;
+    $found;
+    foreach($listFirstPlayer as $game){
+      $found = false;
+      foreach($listSecondPlayer as $game2){
+        if($game->getID() == $game2->getID()){
+          $found = true;
+          if($notMode == ""){
+            $similarities = printGameInTable($similarities, $firstDD, $secondDD, $username1, $username2, $game, $game2);
+          }
+        }
+      }
+      if(!$found && $notMode == "not"){
+        $game2 = new Game("", "", "");
+        $game2->setWishlistPriority("");
+        $game2->setStatus("");
+        $game2->setComment("");
+        $similarities = printGameInTable($similarities, $firstDD, $secondDD, $username1, $username2, $game, $game2);
+      }
+    }
 
-  if($notMode == "not"){
-	foreach($listSecondPlayer as $game){
-	$found = false;
-	foreach($listFirstPlayer as $game2){
-		if($game->getID() == $game2->getID()){
-			$found = true;
-		}
-	}
-	if(!$found){
-		$game2 = new Game($game->getID(), $game->getName(), "");
-		$game2->setWishlistPriority("");
-		$game2->setStatus("");
-		$game2->setComment("");
-		$similarities = printGameInTable($similarities,  $secondDD,$firstDD,  $username2, $username1, $game2, $game);
-	}
-}
+    if($notMode == "not"){
+    foreach($listSecondPlayer as $game){
+      $found = false;
+      foreach($listFirstPlayer as $game2) {
+        if($game->getID() == $game2->getID()){
+          $found = true;
+        }
+      }
+      if(!$found){
+        $game2 = new Game($game->getID(), $game->getName(), "");
+        $game2->setWishlistPriority("");
+        $game2->setStatus("");
+        $game2->setComment("");
+        $similarities = printGameInTable($similarities, $secondDD, $firstDD, $username2, $username1, $game2, $game);
+      }
+    }
   }
 
-if($similarities == 0){
-	echo "<b>None</b>";
-} else {
-	echo "</table>";
+  if($similarities == 0){
+    echo "<p>".$caption."</p>";
+    echo "<p><strong>None</strong></p>";
+  } else {
+    echo "</tbody></table>";
+  }
 }
-	}
-	}
+}
 	
 	function printGameIntable($similarities, $firstDD, $secondDD, $username1, $username2, $game, $game2){
 		$similarities++;
 			if($similarities == 1){
-				printTable($firstDD, $secondDD, $username1, $username2);
+				printTable($firstDD, $secondDD, $username1, $username2, $caption);
+        echo "<tbody>";
 			}
-			echo "<tr><td>".$game->getName()."</td>";
+			echo "<tr><th scope='row'>".$game->getName()."</th>";
+      echo "<td>".$game->getStatus()."</td>";
 			if(isChoiceWishlist($firstDD)){
 				echo "<td>".$game->getWishlistPriority()."</td>";
 			}
-				echo "<td>".$game->getStatus()."</td>";
-				echo "<td>".$game->getComment()."</td>";
+		  echo "<td>".$game->getComment()."</td>";
+      echo "<td>".$game2->getStatus()."</td>";
 			if(isChoiceWishlist($secondDD)){
 				echo "<td>".$game2->getWishlistPriority()."</td>";
 			}
-				echo "<td>".$game2->getStatus()."</td>";
-				echo "<td>".$game2->getComment()."</td>";
+		  echo "<td>".$game2->getComment()."</td>";
 			echo "</tr>";
 			return $similarities;
 	}
-
+  
+  // This function has been replaced with getXMLfromBGG()
 	function getXML($url, $retryCount){
+    // simplexml_load_file() needs to be replaced by a XMLHTTPRequest with a custom header, result can then be stored in a stream/variable and passed on to simplexml_load_file()
 		$sxml = simplexml_load_file($url);
 		if($retryCount == 30){
 			echo "I've waited very long for BGG. BGG might be really busy, it's a very large collection or something else went wrong.";
@@ -286,6 +289,7 @@ if($similarities == 0){
 	}
 	
 	function printTable($firstDD, $secondDD, $username1, $username2){
+    global $caption;
 		$colspan1 = 2;
 		$colspan2 = 2;
 		if(isChoiceWishlist($firstDD)){
@@ -295,32 +299,48 @@ if($similarities == 0){
 		if(isChoiceWishlist($secondDD)){
 			$colspan2++;
 		}
-		echo "<table><col><colgroup span='".$colspan1."'></colgroup><colgroup span='".$colspan2."'></colgroup><tr><td></td><th colspan='".$colspan1."' scope='colgroup'>".$username1."</th><th colspan='".$colspan2."' scope='colgroup'>".$username2."</th></tr><tr><th>Name</th>";
-		if(isChoiceWishlist($firstDD)){
-		echo "<th>Wishlist priority</th>";
+		echo "<table><caption>".$caption."</caption><colgroup class='colName'></colgroup><colgroup span='".$colspan1."' class='colUser'></colgroup><colgroup span='".$colspan2."' class='colUser'><thead><tr><th rowspan='2'>Name</th><th scope='col' colspan='".$colspan1."' class='userName'>".$username1."</th><th scope='col' colspan='".$colspan2."' class='userName'>".$username2."</th></tr><tr>";
+    echo "<th scope='col'>Status</th>";
+    if(isChoiceWishlist($firstDD)){
+		  echo "<th scope='col'>Wishlist priority</th>";
 		}
-		echo "<th>Status</th>";
-		echo "<th>Comment</th>";
+		echo "<th scope='col'>Comment</th>";
+    echo "<th scope='col'>Status</th>";
 		if(isChoiceWishlist($secondDD)){
-		echo "<th>Wishlist priority</th>";
+		  echo "<th scope='col'>Wishlist priority</th>";
 		}
-		echo "<th>Status</th>";
-		echo "<th>Comment</th>";
-		echo "</tr>";
+		echo "<th scope='col'>Comment</th>";
+		echo "</tr></thead>";
 	}
 	
-	function processChoices($username, $ddChoice, $excludeExpansions){
-		$url = "http://www.boardgamegeek.com/xmlapi/collection/".$username."?".$ddChoice."=1";
+	function processChoices($username, $ddChoice, $excludeExpansions, $apiToken){
+		$url = "https://boardgamegeek.com/xmlapi/collection/".$username."?".$ddChoice."=1";
 		if($excludeExpansions){
 			$url = $url."&excludesubtype=boardgameexpansion";
 		}
 		// read feed into SimpleXML object
-		$sxml = getXML($url, 0);
+		//$sxml = getXML($url, 0);
+		$sxml = getXMLfromBGG($url, 0);
 
 		return processXML($sxml, $ddChoice);
+    //echo "Processed Choices"; 
 	}
 	
 	?>
+    </div>
+    <div class="content">
+      <h2>Compare something else:</h2>
+      <ul>
+       <li><a href="./">Compare two user's collections</a></li>
+        <li><a href="compare_to_geeklist.html">Compare a user's collection to a geeklist</a></li>
+      </ul>
 
+      <h2>Feature requests or bugs?</h2>
+      <p>Take a look at the <a href="https://boardgamegeek.com/thread/1792487">BGG thread</a>.</p>
+    </div>
+  </main>
+  <footer>
+    <img src="powered_by_logo_01_SM.jpg" alt="Powered by BGG"/>
+  </footer>
 </body>
 </html> 
