@@ -12,7 +12,7 @@
     <h1>Comparison of user's BoardGameGeek collection to geeklist</h1>
   </header>
   <main> 
-    <div class="content"?>
+    <div class="content">
 <?php 
 include 'connection.php';
 include 'bggxmlapi.php';
