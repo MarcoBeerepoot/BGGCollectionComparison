@@ -1,5 +1,5 @@
 <?php
-function getXMLfromBGG($url,$retryCount){
+function getXMLfromBGG($url,$convertToObject){
   global $apiToken;
   // initialize curl instance
   $curlHandle = curl_init();
@@ -42,10 +42,16 @@ function getXMLfromBGG($url,$retryCount){
         break;
       case 200: 
         //echo "<p>getXMLfromBGG:<br><textarea>".$curlResponse."</textarea>";
-        $xml = simplexml_load_string($curlResponse);
-        if ($xml === false) {
-          echo "<p>BGG responded, but I cannot understand their response.</p>";
+        if($convertToObject == true){
+          $xml = simplexml_load_string($curlResponse);
+          if ($xml === false) {
+            echo "<p>BGG responded, but I cannot understand their response.</p>";
+          } else {
+            sleep(3); // sleep a few second as to not trigger a HTTP 429
+            return ($xml);
+          }
         } else {
+          $xml = $curlResponse;
           sleep(3); // sleep a few second as to not trigger a HTTP 429
           return ($xml);
         }
