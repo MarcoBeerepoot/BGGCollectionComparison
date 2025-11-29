@@ -84,15 +84,15 @@ if($sxml === false){
   //echo "<p>User collection loaded.</p>";
 }
       
-$sxml2 = getXMLfromBGG($url, true);
+$sxml2 = getXMLfromBGG($url2, true);
 if($sxml2 === false){
   echo "<p>Waiting 10 seconds for BGG to process request...</p>";
   sleep(10);
-  $sxml2 = getXMLfromBGG($url, true);
+  $sxml2 = getXMLfromBGG($url2, true);
   if($sxml2 === false){
     echo "<p>Waiting 20 seconds for BGG to process request...</p>";
     sleep(20);
-    $sxml2 = getXMLfromBGG($url, true);
+    $sxml2 = getXMLfromBGG($url2, true);
     if($sxml2 === false){
       echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
     } else {
@@ -106,47 +106,53 @@ if($sxml2 === false){
 }
 
 $listFirstPlayer = array();
-$listGeeklist = array();
 $idListFirstPlayer = array();
+$listGeeklistTemp = array();
+$idListGeeklist = array();
+$listGeeklist = array();
 $i = 0;
+      
 foreach($sxml->children() as $child){
    $id = (string) $child['objectid'];
    $idListFirstPlayer[$i] = $id;
    $listFirstPlayer[$id] = (string) $child -> name;
    $i++;
 }
+
 if(count($listFirstPlayer) == 0){
-	echo "<h2>List is empty or your request is in the queue. Please go back and try again.</h2>";
+	echo "<h2>Somethin went wrong</h2><p>List is empty or your request is in the queue. Please go back and try again.</p>";
 } else {
   $i = 0;
-  foreach($sxml2->children() as $child)
-    {
-     $id = (string) $child['objectid'];
-     if(!empty($id)){ 
-    $listGeeklist[$i] = new GeeklistItem((string) $child['id'], (string) $child['objectname'], $id);
-    $i++;
-     }
+  foreach($sxml2->children() as $child) {
+    $id = (string) $child['objectid'];
+    $idListGeeklist[$i] = $id;
+    $listGeeklistTemp[$id] = (string) $child -> name;
+    if(!empty($id)){ 
+      $listGeeklist[$i] = new GeeklistItem((string) $child['id'], (string) $child['objectname'], $id);
+      $i++;
     }
-    if(count($listGeeklist) == 0){
-      echo "<h2>List is empty or your request is in the queue. Please go back and try again.</h2>";
-    } else {
-      echo "<h2>The games that are on both selected lists:</h2>";
-      $i = 0;
-      foreach($listGeeklist as $game){
-        if(in_array($game->getObjectID(), $idListFirstPlayer)){
-          if($i == 0){
-            echo "<ul>";
-          }
-          $i++;
-          echo "<li><a href='https://boardgamegeek.com/geeklist/".$geeklist."/item/".$game->getID()."#item".$game->getID()."'>".$listFirstPlayer[$game->getObjectID()]."</a></li>";
+  }
+ 
+  if(count($listGeeklist) == 0){
+    echo "<h2>Somethin went wrong</h2><p>List is empty or your request is in the queue. Please go back and try again.</p>";
+  } else {
+    echo "<h2>The games that are on both selected lists:</h2>";
+    $i = 0;
+    foreach($listGeeklist as $game){
+      if(in_array($game->getObjectID(), $idListFirstPlayer, true)){
+        if($i == 0){
+          echo "<ul>";
         }
+        $i++;
+        echo "<li><a href='https://boardgamegeek.com/geeklist/".$geeklist."/item/".$game->getID()."#item".$game->getID()."'>".$listFirstPlayer[$game->getObjectID()]."</a></li>";
       }
-      if($i == 0){
-         echo "<p>None</p>";
-      } else {
-         echo "</ul>";
-      }
-    } 
+    }
+    if($i == 0){
+       echo "<p>None</p>";
+    } else {
+       echo "</ul>";
+    }
+  } 
 }
 ?>
     </div>
