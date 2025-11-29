@@ -30,6 +30,10 @@ h1 {
   font-size: 1.2em;
 }
 
+h2 {
+  margin: 0;
+}
+
 h1 span {
   visibility: hidden;
 }

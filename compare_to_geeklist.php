@@ -136,7 +136,7 @@ if(count($listFirstPlayer) == 0){
   if(count($listGeeklist) == 0){
     echo "<h2>Somethin went wrong</h2><p>List is empty or your request is in the queue. Please go back and try again.</p>";
   } else {
-    echo "<h2>The games that are on both selected lists:</h2>";
+    echo "<h2>These games on are both lists:</h2>";
     $i = 0;
     foreach($listGeeklist as $game){
       if(in_array($game->getObjectID(), $idListFirstPlayer, true)){
