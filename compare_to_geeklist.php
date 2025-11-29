@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>BGG Collection Comparison</title>
+  <title>BGGCC - User vs Geeklist</title>
   <link rel="stylesheet" href="style.css" media="all">
-  <script type="application/javascript" src="scripts.js"></script>
+  <script src="scripts.js"></script>
   <link rel="shortcut icon" href="https://cf.geekdo-static.com/icons/favicon2.ico" type="image/ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   <header>
-    <h1>Comparison of user's BoardGameGeek collection to geeklist</h1>
+    <h1><span>BGG</span> Collection Comparison Tool - User vs Geeklist</h1>
   </header>
   <main> 
     <div class="content">
@@ -63,15 +63,15 @@ $url = "https://boardgamegeek.com/xmlapi/collection/".$username."?".$dropdownVal
 $url2 = "https://boardgamegeek.com/xmlapi/geeklist/".$geeklist;
 // read feed into SimpleXML object
   
-$sxml = getXMLfromBGG($url, 0);
+$sxml = getXMLfromBGG($url, true);
 if($sxml === false){
   echo "<p>Waiting 10 seconds for BGG to process request...</p>";
   sleep(10);
-  $sxml = getXMLfromBGG($url, 0);
+  $sxml = getXMLfromBGG($url, true);
   if($sxml === false){
     echo "<p>Waiting 20 seconds for BGG to process request...</p>";
     sleep(20);
-    $sxml = getXMLfromBGG($url, 0);
+    $sxml = getXMLfromBGG($url, true);
     if($sxml === false){
       echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
     } else {
@@ -84,15 +84,15 @@ if($sxml === false){
   //echo "<p>User collection loaded.</p>";
 }
       
-$sxml2 = getXMLfromBGG($url, 0);
+$sxml2 = getXMLfromBGG($url, true);
 if($sxml2 === false){
   echo "<p>Waiting 10 seconds for BGG to process request...</p>";
   sleep(10);
-  $sxml2 = getXMLfromBGG($url, 0);
+  $sxml2 = getXMLfromBGG($url, true);
   if($sxml2 === false){
     echo "<p>Waiting 20 seconds for BGG to process request...</p>";
     sleep(20);
-    $sxml2 = getXMLfromBGG($url, 0);
+    $sxml2 = getXMLfromBGG($url, true);
     if($sxml2 === false){
       echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
     } else {

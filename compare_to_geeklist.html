@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>BGG Collection Comparison - User to Geeklist</title>
+  <title>BGGCC - User vs Geeklist</title>
   <link rel="stylesheet" href="style.css" media="all">
-  <script type="application/javascript" src="scripts.js"></script>
+  <script src="scripts.js"></script>
   <link rel="shortcut icon" href="https://cf.geekdo-static.com/icons/favicon2.ico" type="image/ico">
   <link rel="preload" href="loading.gif" as="image" type="image/gif">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   <header>
-    <h1>Compare a user's BoardGameGeek collection to a geeklist</h1>
+    <h1><span>BGG</span> Collection Comparison Tool - User vs Geeklist</h1>
   </header>
   <main>
     <form action="compare_to_geeklist.php" method="post" onsubmit="return ShowLoading()">
     <fieldset class="options">
       <legend>Search parameters</legend>
+        <p>Compare a user's BoardGameGeek collection to a geeklist.</p>
         <dl>
           <dt><label for="dropdownValue">Compare the</label></dt>
           <dd><select name="dropdownValue" id="dropdownValue">

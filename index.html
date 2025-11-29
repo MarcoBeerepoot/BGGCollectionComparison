@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>BGG Collection Comparison</title>
+  <title>BGGCC - User vs User</title>
   <link rel="stylesheet" href="style.css" media="all">
-  <script type="application/javascript" src="scripts.js"></script>
+  <script src="scripts.js"></script>
   <link rel="shortcut icon" href="https://cf.geekdo-static.com/icons/favicon2.ico" type="image/ico">
   <link rel="preload" href="loading.gif" as="image" type="image/gif">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   <header>
-    <h1>Compare a user's BoardGameGeek collection to another user's collection</h1>
+    <h1><span>BGG</span> Collection Comparison Tool - User vs User</h1>
   </header>
-  <main> 
+  <main>
+    <div class="content">
+      <h2>Welcome</h2>
+      <p>Compare a user's BoardGameGeek collection to another user's collection.</p>
+    </div>
     <form action="compare.php" method="post" onsubmit="return ShowLoading()">
       <div class="columns">
         <fieldset>
@@ -39,7 +43,7 @@
           </dl>
         </fieldset>
         <fieldset>
-          <legend>Compare this user's collection</legend>
+          <legend>Against this user's collection</legend>
           <dl>
             <dt><label for="secondDD">Against the:</label></dt>
             <dd><select name="secondDD[]" id="secondDD" multiple size="13">
@@ -73,7 +77,6 @@
         <p class="buttons"><input id="submitButton" type="submit" value="Start comparison"></p>
       </fieldset>
     </form>
-    <!--<div id="imgDiv"></div>-->
     <div class="content">
       <h2>Compare something else:</h2>
       <ul>

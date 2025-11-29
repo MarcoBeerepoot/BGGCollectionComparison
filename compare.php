@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>BGG Collection Comparison</title>
+  <title>BGGCC - User vs User</title>
   <link rel="stylesheet" href="style.css" media="all">
-  <script type="application/javascript" src="scripts.js"></script>
+  <script src="scripts.js"></script>
   <link rel="shortcut icon" href="https://cf.geekdo-static.com/icons/favicon2.ico" type="image/ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   <header>
-    <h1>Compare a user's BoardGameGeek collection to a geeklist</h1>
+    <h1><span>BGG</span> Collection Comparison Tool - User vs User</h1>
   </header>
   <main>
     <div class="content">
@@ -241,23 +241,6 @@ if(count($listFirstPlayer) == 0){
 			echo "</tr>";
 			return $similarities;
 	}
-  
-  // This function has been replaced with getXMLfromBGG()
-	function getXML($url, $retryCount){
-    // simplexml_load_file() needs to be replaced by a XMLHTTPRequest with a custom header, result can then be stored in a stream/variable and passed on to simplexml_load_file()
-		$sxml = simplexml_load_file($url);
-		if($retryCount == 30){
-			echo "I've waited very long for BGG. BGG might be really busy, it's a very large collection or something else went wrong.";
-			return $sxml;
-		}
-		//Not the correct way to check this. Should actually look for a 202...
-		if($sxml->getName() == "message"){
-			sleep(2);
-			$retryCount++;
-			return getXML($url, $retryCount);
-		}
-		return $sxml;
-	}
 	
 	function processXML($xml, $dropdownChoice){
 		$list = array();
@@ -319,15 +302,15 @@ if(count($listFirstPlayer) == 0){
 			$url = $url."&excludesubtype=boardgameexpansion";
 		}
 		// read feed into SimpleXML object
-		$sxml = getXMLfromBGG($url, 0);
+		$sxml = getXMLfromBGG($url, true);
     if($sxml === false){
       echo "<p>Waiting 10 seconds for BGG to process request...</p>";
       sleep(10);
-      $sxml = getXMLfromBGG($url, 0);
+      $sxml = getXMLfromBGG($url, true);
       if($sxml === false){
         echo "<p>Waiting 20 seconds for BGG to process request...</p>";
         sleep(20);
-        $sxml = getXMLfromBGG($url, 0);
+        $sxml = getXMLfromBGG($url, true);
         if($sxml === false){
           echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
         } else {

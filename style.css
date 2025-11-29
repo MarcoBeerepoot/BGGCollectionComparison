@@ -21,6 +21,19 @@ header {
   padding: 0.5em 1em;
 }
 
+h1 {
+  margin: 0;
+  background-image: url('navbar-logo-bgg-b2.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-left: 0.5em;
+  font-size: 1.2em;
+}
+
+h1 span {
+  visibility: hidden;
+}
+
 main {
   padding: 0 0.5em 0 0.5em;
 }
@@ -141,7 +154,7 @@ form .options {
 
 div.content {
   border: 0;
-  margin: 1em 0.5em 1em .5em;
+  margin: 1em 0.5em 1em 0.5em;
   padding: 1em;
   background-color: white;
   border-radius: 5px;
@@ -149,10 +162,11 @@ div.content {
 
 form fieldset {
   border: 0;
-  margin: 0 0 1em 0;
+  margin: 0 0.5em 1em 0.5em;
   padding: 0em;
   background-color: white;
   border-radius: 5px;
+  width: 100%;
 }
 
 form fieldset legend {
@@ -164,7 +178,8 @@ form fieldset legend {
   box-sizing: border-box;
 }
 
-form fieldset dl {
+form fieldset dl,
+form fieldset p {
   margin: 1em;
 }
 
