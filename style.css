@@ -179,6 +179,7 @@ form fieldset {
 form fieldset legend {
   background-color: white;
   font-weight: bold;
+  font-size: 1.5em;
   width: 100%;
   border-radius: 5px;
   padding: 0.5em;
@@ -192,6 +193,7 @@ form fieldset p {
 
 form fieldset dt {
   margin-bottom: 0.2em;
+  font-weight: bold;
 }
 
 form fieldset dt label {
@@ -235,4 +237,9 @@ button, input[type=submit] {
 button:hover, input[type=submit]:hover,
 button:active, input[type=submit]:active {
   background-color: #1A7244;
+}
+
+/* Developement styles */
+div.debug {
+  border: 2px dashed black;
 }

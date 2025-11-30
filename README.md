@@ -18,10 +18,11 @@ BGG Collection Comparison
 
 - Added "Powered by BGG" logo (BGG:DraedGhawl)
 
-## version 2.0 (2025-12-XX)
+## version 2.0 (2025-11-30)
 
 - Support for BGG XML API authentiocation (BGG:banaan666)
 - Revamped Front-end (BGG:banaan666)
+- Feature: Added option to show BGG Rating (BGG:banaan666)
 
 
 # Setup

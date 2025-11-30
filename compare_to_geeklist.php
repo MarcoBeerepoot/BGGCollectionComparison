@@ -14,6 +14,8 @@
   <main> 
     <div class="content">
 <?php 
+set_time_limit(240);
+
 include 'connection.php';
 include 'bggxmlapi.php';
 
@@ -53,106 +55,108 @@ class GeeklistItem {
 	}
 }
       
-set_time_limit(240);
+$username = trim(filter_var($_POST['username'], FILTER_SANITIZE_STRING));
+$geeklist = trim(filter_var($_POST['geeklist'], FILTER_SANITIZE_STRING));
+$dropdownValue = $_POST['dropdownValue'];
 
-$username = $_POST["username"]; 
-$geeklist = $_POST["geeklist"]; 
-$dropdownValue = $_POST["dropdownValue"];
+if(!(validBGGUsernameInput($username) && validBGGGeeklistInput($geeklist))){
+  echo "<h2>Something is wrong</h2><p>The BGG username and/or the Geeklist number is invalid.</p>";
+} else {
+  $url = "https://boardgamegeek.com/xmlapi/collection/".$username."?".$dropdownValue."=1";
+  $url2 = "https://boardgamegeek.com/xmlapi/geeklist/".$geeklist;
+  // read feed into SimpleXML object
 
-$url = "https://boardgamegeek.com/xmlapi/collection/".$username."?".$dropdownValue."=1";
-$url2 = "https://boardgamegeek.com/xmlapi/geeklist/".$geeklist;
-// read feed into SimpleXML object
-  
-$sxml = getXMLfromBGG($url, true);
-if($sxml === false){
-  echo "<p>Waiting 10 seconds for BGG to process request...</p>";
-  sleep(10);
   $sxml = getXMLfromBGG($url, true);
   if($sxml === false){
-    echo "<p>Waiting 20 seconds for BGG to process request...</p>";
-    sleep(20);
+    echo "<p>Waiting 10 seconds for BGG to process request...</p>";
+    sleep(10);
     $sxml = getXMLfromBGG($url, true);
     if($sxml === false){
-      echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
+      echo "<p>Waiting 20 seconds for BGG to process request...</p>";
+      sleep(20);
+      $sxml = getXMLfromBGG($url, true);
+      if($sxml === false){
+        echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
+      } else {
+        //echo "<p>User collection loaded.</p>";  
+      }
     } else {
-      //echo "<p>User collection loaded.</p>";  
+      //echo "<p>User collection loaded.</p>";
     }
   } else {
     //echo "<p>User collection loaded.</p>";
   }
-} else {
-  //echo "<p>User collection loaded.</p>";
-}
-      
-$sxml2 = getXMLfromBGG($url2, true);
-if($sxml2 === false){
-  echo "<p>Waiting 10 seconds for BGG to process request...</p>";
-  sleep(10);
+
   $sxml2 = getXMLfromBGG($url2, true);
   if($sxml2 === false){
-    echo "<p>Waiting 20 seconds for BGG to process request...</p>";
-    sleep(20);
+    echo "<p>Waiting 10 seconds for BGG to process request...</p>";
+    sleep(10);
     $sxml2 = getXMLfromBGG($url2, true);
     if($sxml2 === false){
-      echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
+      echo "<p>Waiting 20 seconds for BGG to process request...</p>";
+      sleep(20);
+      $sxml2 = getXMLfromBGG($url2, true);
+      if($sxml2 === false){
+        echo "<p>BGG is still processing, pleasee try again in 60 seconds.</p>"; 
+      } else {
+        //echo "<p>Geeklist loaded.</p>"; 
+      }
     } else {
-      //echo "<p>Geeklist loaded.</p>"; 
+      //echo "<p>Geeklist loaded.</p>";
     }
   } else {
     //echo "<p>Geeklist loaded.</p>";
   }
-} else {
-  //echo "<p>Geeklist loaded.</p>";
-}
 
-$listFirstPlayer = array();
-$idListFirstPlayer = array();
-$listGeeklistTemp = array();
-$idListGeeklist = array();
-$listGeeklist = array();
-$i = 0;
-      
-foreach($sxml->children() as $child){
-   $id = (string) $child['objectid'];
-   $idListFirstPlayer[$i] = $id;
-   $listFirstPlayer[$id] = (string) $child -> name;
-   $i++;
-}
-
-if(count($listFirstPlayer) == 0){
-	echo "<h2>Somethin went wrong</h2><p>List is empty or your request is in the queue. Please go back and try again.</p>";
-} else {
+  $listFirstPlayer = array();
+  $idListFirstPlayer = array();
+  $listGeeklistTemp = array();
+  $idListGeeklist = array();
+  $listGeeklist = array();
   $i = 0;
-  foreach($sxml2->children() as $child) {
-    $id = (string) $child['objectid'];
-    $idListGeeklist[$i] = $id;
-    $listGeeklistTemp[$id] = (string) $child -> name;
-    if(!empty($id)){ 
-      $listGeeklist[$i] = new GeeklistItem((string) $child['id'], (string) $child['objectname'], $id);
-      $i++;
-    }
+
+  foreach($sxml->children() as $child){
+     $id = (string) $child['objectid'];
+     $idListFirstPlayer[$i] = $id;
+     $listFirstPlayer[$id] = (string) $child -> name;
+     $i++;
   }
- 
-  if(count($listGeeklist) == 0){
+
+  if(count($listFirstPlayer) == 0){
     echo "<h2>Somethin went wrong</h2><p>List is empty or your request is in the queue. Please go back and try again.</p>";
   } else {
-    echo "<h2>These games on are both lists:</h2>";
     $i = 0;
-    foreach($listGeeklist as $game){
-      if(in_array($game->getObjectID(), $idListFirstPlayer, true)){
-        if($i == 0){
-          echo "<ul>";
-        }
+    foreach($sxml2->children() as $child) {
+      $id = (string) $child['objectid'];
+      $idListGeeklist[$i] = $id;
+      $listGeeklistTemp[$id] = (string) $child -> name;
+      if(!empty($id)){ 
+        $listGeeklist[$i] = new GeeklistItem((string) $child['id'], (string) $child['objectname'], $id);
         $i++;
-        echo "<li><a href='https://boardgamegeek.com/geeklist/".$geeklist."/item/".$game->getID()."#item".$game->getID()."'>".$listFirstPlayer[$game->getObjectID()]."</a></li>";
       }
     }
-    if($i == 0){
-       echo "<p>None</p>";
+
+    if(count($listGeeklist) == 0){
+      echo "<h2>Somethin went wrong</h2><p>List is empty or your request is in the queue. Please go back and try again.</p>";
     } else {
-       echo "</ul>";
-    }
-  } 
+      echo "<h2>These games on are both lists:</h2>";
+      $i = 0;
+      foreach($listGeeklist as $game){
+        if(in_array($game->getObjectID(), $idListFirstPlayer, true)){
+          if($i == 0){
+            echo "<ul>";
+          }
+          $i++;
+          echo "<li><a href='https://boardgamegeek.com/geeklist/".$geeklist."/item/".$game->getID()."#item".$game->getID()."'>".$listFirstPlayer[$game->getObjectID()]."</a></li>";
+        }
+      }
+      if($i == 0){
+         echo "<p>None</p>";
+      } else {
+         echo "</ul>";
+      }
+    } 
+  }
 }
 ?>
     </div>

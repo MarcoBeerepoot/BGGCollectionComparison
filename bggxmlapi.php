@@ -62,4 +62,28 @@ function getXMLfromBGG($url,$convertToObject){
     }      
   }
 }
-?>
+
+// Check if $input confirms to BGG Username requirements:
+// min. length 4
+// max. length 20
+// starts with a letter
+// can only contain letters, numbers and _ (underscore)
+function validBGGUsernameInput($input){
+  $RegexUsernameBGG = "/^[A-Za-z]{1}[A-Za-z0-9_]{3}[A-Za-z0-9_]{0,}$/";
+  if(preg_match($RegexUsernameBGG,$input)){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Check if $input confirms to BGG Geeklist requirements:
+// Any integer value should be fine
+function validBGGGeeklistInput($input){
+  $RegexGeeklistBGG = "/^[0-9]+$/";
+  if(preg_match($RegexGeeklistBGG,$input)){
+    return true;
+  } else {
+    return false;
+  }
+}
