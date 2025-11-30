@@ -213,7 +213,7 @@ if(count($listFirstPlayer) == 0){
   }
 
   if($similarities == 0){
-    echo "<p>".$caption."</p>";
+    echo "<h2>".$caption."</h2>";
     echo "<p><strong>None</strong></p>";
   } else {
     echo "</tbody></table>";

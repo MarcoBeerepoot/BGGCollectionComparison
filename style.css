@@ -32,6 +32,7 @@ h1 {
 
 h2 {
   margin: 0;
+  font-size: 1.5em;
 }
 
 h1 span {
@@ -65,13 +66,15 @@ footer {
 
 table {
   width: 85%;
-  margin-top: 2em;
+  margin-top: 0em;
+  margin-bottom: 1em;
 }
 
 table caption {
   text-align: left;
   font-weight: bold;
   padding: 0 0 0.5em 0;
+  font-size: 1.5em;
 }
 
 table, th, td {
