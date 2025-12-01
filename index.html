@@ -24,7 +24,7 @@
           <legend>Compare this user's collection</legend>
           <dl>  
             <dt><label for="firstDD">Compare the</label></dt>
-            <dd><select name="firstDD[]" id="firstDD" multiple size="13">
+            <dd><select name="firstDD[]" id="firstDD" multiple size="13" required>
             <option value="own" selected>owned</option>
             <option value="rated">rated</option>
             <option value="played">played</option>
@@ -40,14 +40,14 @@
             <option value="wantparts">wants parts</option>
           </select></dd>
             <dt><label for="username1" id="username1">From user</label></dt>
-            <dd><input type="text" name="username1" value=""></dd>
+            <dd><input type="text" name="username1" value="" pattern="^[A-Za-z]{1}[\w\s]{3}[\w\s]{0,16}(?<!\s)$" maxlength="20" required></dd>
           </dl>
         </fieldset>
         <fieldset>
           <legend>Against this user's collection</legend>
           <dl>
             <dt><label for="secondDD">Against the</label></dt>
-            <dd><select name="secondDD[]" id="secondDD" multiple size="13">
+            <dd><select name="secondDD[]" id="secondDD" multiple size="13" required>
             <option value="own" selected>owned</option>
             <option value="rated">rated</option>
             <option value="played">played</option>
@@ -63,7 +63,7 @@
             <option value="wantparts">wants parts</option>
           </select></dd>
           <dt><label for="username2">From the other user</label></dt>
-          <dd><input type="text" name="username2" value=""></dd>
+          <dd><input type="text" name="username2" value="" pattern="^[A-Za-z]{1}[\w\s]{3}[\w\s]{0,16}(?<!\s)$" maxlength="20" required></dd>
         </dl>
         </fieldset>
       </div>
@@ -91,7 +91,8 @@
     </div>
   </main>
   <footer>
-    <img src="powered_by_logo_01_SM.jpg" alt="Powered by BGG"/>
+    <p><img src="powered_by_logo_01_SM.jpg" alt="Powered by BGG"/></p>
+    <p>version 2.0.1 by <a href="https://boardgamegeek.com/profile/DraedGhawl">DraedGhawl</a> and <a href="https://boardgamegeek.com/profile/banaan666">banaan666</a></p>
   </footer>
 </body>
 </html> 
