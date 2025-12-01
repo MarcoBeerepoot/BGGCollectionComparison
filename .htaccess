@@ -1,0 +1,3 @@
+Header add Content-Security-Policy "default-src 'self'; img-src 'self' https://cf.geekdo-static.com; script-src-attr 'unsafe-inline'; script-src-elem 'self' 'unsafe-inline'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests"
+Header add Referrer-Policy "same-origin"
+Header add Permissions-Policy "geolocation=()"
