@@ -3,7 +3,6 @@
 <head>
   <title>BGGCC - User vs Geeklist</title>
   <link rel="stylesheet" href="style.css" media="all">
-  <script src="scripts.js"></script>
   <link rel="shortcut icon" href="https://cf.geekdo-static.com/icons/favicon2.ico" type="image/ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -62,7 +61,7 @@ $dropdownValue = $_POST['dropdownValue'];
 if(!(validBGGUsernameInput($username) && validBGGGeeklistInput($geeklist))){
   echo "<h2>Something is wrong</h2><p>The BGG username and/or the Geeklist number is invalid.</p>";
 } else {
-  $url = "https://boardgamegeek.com/xmlapi/collection/".$username."?".$dropdownValue."=1";
+  $url = "https://boardgamegeek.com/xmlapi/collection/".rawurlencode($username)."?".$dropdownValue."=1";
   $url2 = "https://boardgamegeek.com/xmlapi/geeklist/".$geeklist;
   // read feed into SimpleXML object
 
@@ -172,7 +171,8 @@ if(!(validBGGUsernameInput($username) && validBGGGeeklistInput($geeklist))){
     </div>
   </main>
   <footer>
-    <img src="powered_by_logo_01_SM.jpg" alt="Powered by BGG"/>
+    <p><img src="powered_by_logo_01_SM.jpg" alt="Powered by BGG"/></p>
+    <p>version 2.0.1 by <a href="https://boardgamegeek.com/profile/DraedGhawl">DraedGhawl</a> and <a href="https://boardgamegeek.com/profile/banaan666">banaan666</a></p>
   </footer>
 </body>
 </html> 

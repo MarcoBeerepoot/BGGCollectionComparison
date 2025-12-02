@@ -24,6 +24,11 @@ BGG Collection Comparison
 - Revamped Front-end (BGG:banaan666)
 - Feature: Added option to show BGG Rating (BGG:banaan666)
 
+## version 2.0.1 (2025-12-02)
+
+- Fixed: BGG Username validation in Back-end, addedd support for spaces in names (BGG:banaan666)
+- Added: BGG Username validation to Front-end (BGG:banaan666)
+
 
 # Setup
 

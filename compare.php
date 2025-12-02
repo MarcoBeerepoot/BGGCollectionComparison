@@ -3,7 +3,6 @@
 <head>
   <title>BGGCC - User vs User</title>
   <link rel="stylesheet" href="style.css" media="all">
-  <script src="scripts.js"></script>
   <link rel="shortcut icon" href="https://cf.geekdo-static.com/icons/favicon2.ico" type="image/ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -324,7 +323,7 @@ function printTable($firstDD, $secondDD, $username1, $username2){
 }
 
 function processChoices($username, $ddChoice, $excludeExpansions, $apiToken){
-  $url = "https://boardgamegeek.com/xmlapi/collection/".$username."?".$ddChoice."=1";
+  $url = "https://boardgamegeek.com/xmlapi/collection/".rawurlencode($username)."?".$ddChoice."=1";
   if($excludeExpansions){
     $url = $url."&excludesubtype=boardgameexpansion";
   }
@@ -365,7 +364,8 @@ function processChoices($username, $ddChoice, $excludeExpansions, $apiToken){
     </div>
   </main>
   <footer>
-    <img src="powered_by_logo_01_SM.jpg" alt="Powered by BGG"/>
+    <p><img src="powered_by_logo_01_SM.jpg" alt="Powered by BGG"/></p>
+    <p>version 2.0.1 by <a href="https://boardgamegeek.com/profile/DraedGhawl">DraedGhawl</a> and <a href="https://boardgamegeek.com/profile/banaan666">banaan666</a></p>
   </footer>
 </body>
 </html> 

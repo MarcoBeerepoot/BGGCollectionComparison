@@ -67,9 +67,10 @@ function getXMLfromBGG($url,$convertToObject){
 // min. length 4
 // max. length 20
 // starts with a letter
-// can only contain letters, numbers and _ (underscore)
+// can only contain letters, numbers, _ (underscore) or space/%20
 function validBGGUsernameInput($input){
-  $RegexUsernameBGG = "/^[A-Za-z]{1}[A-Za-z0-9_]{3}[A-Za-z0-9_]{0,}$/";
+  //$RegexUsernameBGG = "/^[A-Za-z]{1}[A-Za-z0-9_\s]{3}[A-Za-z0-9_\s]{0,16}$/";
+  $RegexUsernameBGG = "/^[A-Za-z]{1}[\w\ ]{3}[\w\ ]{0,16}(?<!\ )$/";
   if(preg_match($RegexUsernameBGG,$input)){
     return true;
   } else {
