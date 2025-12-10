@@ -29,6 +29,15 @@ BGG Collection Comparison
 - Fixed: BGG Username validation in Back-end, addedd support for spaces in names (BGG:banaan666)
 - Added: BGG Username validation to Front-end (BGG:banaan666)
 
+## version 2.0.2 (2025-12-04)
+
+- Fixed: Minor thingy in Loading dialog.
+
+## version 2.1 (2025-12-09)
+
+- Moved Tool to different hosting provider managed by @banaan666
+- Changed to BGG XML API authorization managed by @banaan666
+
 
 # Setup
 
@@ -37,4 +46,4 @@ Open de connection.php file and place your bearer token into the apiToken variab
 
 # Usage
 
-Open https://domain.tld/path/index.html
+Open https://www.boardgamestuff.net/BGGCC/
