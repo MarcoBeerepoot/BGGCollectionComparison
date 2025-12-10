@@ -3,7 +3,7 @@
 <head>
   <title>BGGCC - User vs Geeklist</title>
   <link rel="stylesheet" href="style.css" media="all">
-  <link rel="shortcut icon" href="https://cf.geekdo-static.com/icons/favicon2.ico" type="image/ico">
+  <link rel="shortcut icon" href="favicon2.ico" type="image/ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -162,7 +162,7 @@ if(!(validBGGUsernameInput($username) && validBGGGeeklistInput($geeklist))){
     <div class="content">
       <h2>Compare something else:</h2>
       <ul>
-       <li><a href="./">Compare two user's collections</a></li>
+        <li><a href="./">Compare two user's collections</a></li>
         <li><a href="compare_to_geeklist.html">Compare a user's collection to a geeklist</a></li>
       </ul>
 
@@ -172,7 +172,7 @@ if(!(validBGGUsernameInput($username) && validBGGGeeklistInput($geeklist))){
   </main>
   <footer>
     <p><img src="powered_by_logo_01_SM.jpg" alt="Powered by BGG"/></p>
-    <p>version 2.0.1 by <a href="https://boardgamegeek.com/profile/DraedGhawl">DraedGhawl</a> and <a href="https://boardgamegeek.com/profile/banaan666">banaan666</a></p>
+    <p>version 2.1 by <a href="https://boardgamegeek.com/profile/banaan666">banaan666</a> and <a href="https://boardgamegeek.com/profile/DraedGhawl">DraedGhawl</a></p>
   </footer>
 </body>
 </html> 
