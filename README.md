@@ -38,6 +38,10 @@ BGG Collection Comparison
 - Moved Tool to different hosting provider managed by @banaan666
 - Changed to BGG XML API authorization managed by @banaan666
 
+## version 2.1.1 (2025-12-11)
+
+- Fixed: Minor mobile stylesheet improvements 
+
 
 # Setup
 

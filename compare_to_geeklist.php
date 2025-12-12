@@ -172,7 +172,7 @@ if(!(validBGGUsernameInput($username) && validBGGGeeklistInput($geeklist))){
   </main>
   <footer>
     <p><img src="powered_by_logo_01_SM.jpg" alt="Powered by BGG"/></p>
-    <p>version 2.1 by <a href="https://boardgamegeek.com/profile/banaan666">banaan666</a> and <a href="https://boardgamegeek.com/profile/DraedGhawl">DraedGhawl</a></p>
+    <p>version 2.1.1 by <a href="https://boardgamegeek.com/profile/banaan666">banaan666</a> and <a href="https://boardgamegeek.com/profile/DraedGhawl">DraedGhawl</a></p>
   </footer>
 </body>
 </html> 
