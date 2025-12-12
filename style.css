@@ -7,7 +7,7 @@ body {
 
 a, a:link {
   color: black;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 a:focus, a:hover, a:active {
@@ -21,13 +21,27 @@ header {
   padding: 0.5em 1em;
 }
 
+@media (max-width: 576px) {
+  header {
+    padding: 0.5em;
+  }
+}
+
+
 h1 {
   margin: 0;
   background-image: url('navbar-logo-bgg-b2.svg');
   background-repeat: no-repeat;
   background-size: contain;
-  padding-left: 0.5em;
+  padding-left: 3.5em;
   font-size: 1.2em;
+}
+
+@media (max-width: 576px) {
+  h1 {
+    background-size: auto;
+    padding-left: 100px;
+  }
 }
 
 h2 {
@@ -37,6 +51,7 @@ h2 {
 
 h1 span {
   visibility: hidden;
+  display: none;
 }
 
 
@@ -58,13 +73,29 @@ main {
   padding: 0 0.5em 0 0.5em;
 }
 
+@media (max-width: 576px) {
+  main {
+    padding: 0;
+  }
+}
+
 ul {
   list-style-type: disc;
   color: #FF5100;
 }
+
 dd {
   margin-left: 0;
   padding-left: 2em;
+}
+
+@media (max-width: 576px) {
+  ul {
+    padding: 0 1em;
+  }
+  dd {
+    padding-left: 0em;
+  }
 }
 
 footer {
@@ -81,8 +112,15 @@ footer p {
 }
 
 @media (max-width: 576px) {
+  
+  footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
   footer img {
     width: 100%;
+    max-width: 368px;
   } 
 }
 
@@ -179,6 +217,7 @@ form .options {
   form .options {
     max-width: 100%;
   } 
+  
 }
 
 div.content {
@@ -196,6 +235,12 @@ form fieldset {
   background-color: white;
   border-radius: 5px;
   width: 100%;
+}
+
+@media (max-width: 576px) {
+  form fieldset {
+    width: auto;
+  }
 }
 
 form fieldset legend {
@@ -228,7 +273,7 @@ form fieldset dd {
 
 form p.buttons {
   text-align: right;
-  padding-right: 1.5em;
+  padding-right: 0em;
 }
 
 div.loader { 

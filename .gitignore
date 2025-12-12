@@ -1,4 +1,9 @@
 # Contains bearer token
 connection.php
+
 .DS_Store
 TODO.md
+
+# 
+collection.*
+collection/
